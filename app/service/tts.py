@@ -1,7 +1,7 @@
 from kokoro import KPipeline
 import soundfile as sf
 
-class TextToSpeach:
+class TextToSpeachService:
     def __init__(self):
         self.pipeline = KPipeline(lang_code='a')
 
