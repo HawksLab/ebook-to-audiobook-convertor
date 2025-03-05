@@ -86,7 +86,17 @@
             <item>
              <widget class="QPushButton" name="pushButton_2">
               <property name="text">
-               <string>PushButton</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../resources/main_window.qrc">
+                <normaloff>:/play_button/play.png</normaloff>:/play_button/play.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>16</width>
+                <height>16</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -110,14 +120,14 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="playButton">
               <property name="text">
                <string>Play</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="streamButton">
               <property name="text">
                <string>Stream</string>
               </property>
@@ -130,7 +140,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="uploadButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -143,7 +153,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="convertButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -156,7 +166,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="saveButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -185,9 +195,9 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
+    <addaction name="openAction"/>
     <addaction name="separator"/>
-    <addaction name="actionSave_2"/>
+    <addaction name="saveAction"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -199,7 +209,7 @@
    <addaction name="menuFile"/>
    <addaction name="menuAbout"/>
   </widget>
-  <action name="actionOpen">
+  <action name="openAction">
    <property name="text">
     <string>Open</string>
    </property>
@@ -209,7 +219,7 @@
     <string>Save</string>
    </property>
   </action>
-  <action name="actionSave_2">
+  <action name="saveAction">
    <property name="text">
     <string>Save</string>
    </property>
@@ -220,6 +230,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/main_window.qrc"/>
+ </resources>
  <connections/>
 </ui>
