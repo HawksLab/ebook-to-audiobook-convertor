@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>600</height>
+    <width>800</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
+    <width>800</width>
     <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>400</width>
-    <height>600</height>
+    <width>800</width>
+    <height>620</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,72 +40,144 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>400</width>
+     <width>800</width>
      <height>600</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>400</width>
+     <width>800</width>
      <height>600</height>
     </size>
    </property>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>30</y>
-      <width>221</width>
-      <height>221</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>280</y>
-      <width>161</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Upload E-Book</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>360</y>
-      <width>161</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Edit Text</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>440</y>
-      <width>161</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Convert to audio-book</string>
-    </property>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>16777215</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QFrame" name="frame_2">
+          <widget class="QWidget" name="horizontalLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>190</y>
+             <width>371</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="rightMargin">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="horizontalLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>230</y>
+             <width>371</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QPushButton" name="pushButton_4">
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="text">
+               <string>Stream</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Upload E-Book</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Convert to audio-book</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>800</width>
      <height>20</height>
     </rect>
    </property>
