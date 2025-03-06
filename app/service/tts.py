@@ -1,7 +1,13 @@
 from kokoro import KPipeline
-import soundfile as sf
+from abc import ABC, abstractmethod
 
-class TextToSpeachService:
+class TextToSpeachService(ABC):
+    @abstractmethod
+    def generate(self, text: str, voice: str, speed: int):
+        pass
+
+
+class KokoroTextToSpeachService(TextToSpeachService):
     def __init__(self):
         self.pipeline = KPipeline(lang_code='a')
 
