@@ -7,6 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+import main_window_qrc
 
 
 class Ui_MainWindow(object):
