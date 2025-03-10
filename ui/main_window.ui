@@ -113,7 +113,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>230</y>
+             <y>260</y>
              <width>371</width>
              <height>41</height>
             </rect>
@@ -134,6 +134,16 @@
              </widget>
             </item>
            </layout>
+          </widget>
+          <widget class="QComboBox" name="comboBox">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>230</y>
+             <width>372</width>
+             <height>21</height>
+            </rect>
+           </property>
           </widget>
          </widget>
         </item>
