@@ -1,5 +1,7 @@
 from kokoro import KPipeline
 from abc import ABC, abstractmethod
+import io
+import soundfile as sf
 
 class TextToSpeachService(ABC):
     @abstractmethod
@@ -16,8 +18,6 @@ class KokoroTextToSpeachService(TextToSpeachService):
             text, voice=voice, 
             speed=speed, split_pattern=r'\.+'
         )
-        audios = []
         for i, (gs, ps, audio) in enumerate(self.generator):
-            audios.append(audio)
+            sf.write(f'audio_{i}.wav', audio, 24000, format='wav')
 
-        return audios
