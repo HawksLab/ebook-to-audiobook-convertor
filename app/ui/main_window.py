@@ -2,19 +2,25 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from app.constants import TTS_VOICES
+from app.service.player import QTMusicPlayerService
+from app.service.tts import KokoroTextToSpeachService
 import app.ui.main_window_qrc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+
+        self.music_player_service = QTMusicPlayerService()
+        self.tts_service = KokoroTextToSpeachService()
+
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 620)
+        MainWindow.resize(800, 640)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 600))
-        MainWindow.setMaximumSize(QtCore.QSize(800, 620))
+        MainWindow.setMinimumSize(QtCore.QSize(800, 640))
+        MainWindow.setMaximumSize(QtCore.QSize(800, 640))
 
         # Disable the maximize button
         MainWindow.setWindowFlags(QtCore.Qt.WindowType.Window | QtCore.Qt.WindowType.CustomizeWindowHint | QtCore.Qt.WindowType.WindowMinimizeButtonHint | QtCore.Qt.WindowType.WindowCloseButtonHint)
@@ -31,7 +37,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.plainTextEdit = QtWidgets.QPlainTextEdit(parent=self.widget)
-        self.plainTextEdit.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.plainTextEdit.setMaximumSize(QtCore.QSize(400, 600))
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.horizontalLayout.addWidget(self.plainTextEdit)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -47,14 +53,17 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout_2.setContentsMargins(0, 0, 6, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.pushButton_2 = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.pushButton_2.setText("")
+        self.playMediaButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.playMediaButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/play_button/play.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_2.setIcon(icon)
-        self.pushButton_2.setIconSize(QtCore.QSize(16, 16))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.playMediaButton.setIcon(icon)
+        self.playMediaButton.setIconSize(QtCore.QSize(16, 16))
+        self.playMediaButton.setObjectName("playMediaButton")
+        self.playMediaButton.clicked.connect(
+            lambda: self.music_player_service.play("audio_0.wav") # temprory file path
+        )
+        self.horizontalLayout_2.addWidget(self.playMediaButton)
         self.horizontalSlider = QtWidgets.QSlider(parent=self.horizontalLayoutWidget)
         self.horizontalSlider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
@@ -67,6 +76,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.playButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
         self.playButton.setObjectName("playButton")
+        self.playButton.clicked.connect(
+            lambda: self.tts_service.generate(self.plainTextEdit.toPlainText(), self.comboBox.currentText())
+        )
         self.horizontalLayout_4.addWidget(self.playButton)
         self.streamButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
         self.streamButton.setObjectName("streamButton")
