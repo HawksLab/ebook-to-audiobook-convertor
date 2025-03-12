@@ -4,14 +4,12 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from app.constants import TTS_VOICES
 from app.service.player import QTMusicPlayerService
 from app.service.tts import KokoroTextToSpeachService
+from app.service.parser import TikaParserService
+from app.controller.main_window_controller import MainWindowController
 import app.ui.main_window_qrc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-
-        self.music_player_service = QTMusicPlayerService()
-        self.tts_service = KokoroTextToSpeachService()
-
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 640)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
@@ -56,13 +54,14 @@ class Ui_MainWindow(object):
         self.playMediaButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
         self.playMediaButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/play_button/play.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(
+            QtGui.QPixmap(":/play_button/play.png"),
+            QtGui.QIcon.Mode.Normal,
+            QtGui.QIcon.State.Off
+        )
         self.playMediaButton.setIcon(icon)
         self.playMediaButton.setIconSize(QtCore.QSize(16, 16))
         self.playMediaButton.setObjectName("playMediaButton")
-        self.playMediaButton.clicked.connect(
-            lambda: self.music_player_service.play("audio_0.wav") # temprory file path
-        )
         self.horizontalLayout_2.addWidget(self.playMediaButton)
         self.horizontalSlider = QtWidgets.QSlider(parent=self.horizontalLayoutWidget)
         self.horizontalSlider.setOrientation(QtCore.Qt.Orientation.Horizontal)
@@ -76,9 +75,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.playButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
         self.playButton.setObjectName("playButton")
-        self.playButton.clicked.connect(
-            lambda: self.tts_service.generate(self.plainTextEdit.toPlainText(), self.comboBox.currentText())
-        )
         self.horizontalLayout_4.addWidget(self.playButton)
         self.streamButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
         self.streamButton.setObjectName("streamButton")
@@ -130,6 +126,11 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.music_player_service = QTMusicPlayerService()
+        self.tts_service = KokoroTextToSpeachService()
+        self.parser = TikaParserService()
+        self.controler = MainWindowController(self, self.music_player_service, self.tts_service, self.parser)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "abook convertor"))
@@ -144,6 +145,7 @@ class Ui_MainWindow(object):
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.saveAction.setText(_translate("MainWindow", "Save"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
+
 
 
 if __name__ == "__main__":
