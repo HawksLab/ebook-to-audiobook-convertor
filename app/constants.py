@@ -1,4 +1,5 @@
 TTS_VOICES = [
+    'af_heart',
     'am_adam',
     'am_onyx',
     'am_echo',
@@ -8,7 +9,6 @@ TTS_VOICES = [
     'am_michael',
     'am_puck',
     'am_santa',
-    'af_heart',
     'af_alloy',
     'af_aoede',
     'af_bella',
