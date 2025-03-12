@@ -1,6 +1,6 @@
 from kokoro import KPipeline
 from abc import ABC, abstractmethod
-import io
+import tempfile
 import soundfile as sf
 
 class TextToSpeachService(ABC):
@@ -14,10 +14,23 @@ class KokoroTextToSpeachService(TextToSpeachService):
         self.pipeline = KPipeline(lang_code='a')
 
     def generate(self, text: str, voice: str = 'af_heart', speed: int = 1):
-        self.generator = self.pipeline(
-            text, voice=voice, 
-            speed=speed, split_pattern=r'\.+'
-        )
-        for i, (gs, ps, audio) in enumerate(self.generator):
-            sf.write(f'audio_{i}.wav', audio, 24000, format='wav')
+        lines = text.split("\n")
+        length = len(lines)
+        file_paths = []
+        j = 1
+        for line in lines:
+            self.generator = self.pipeline(
+                line, voice=voice, 
+                speed=speed,
+            )
 
+            for i, (gs, ps, audio) in enumerate(self.generator):
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+                    temp_file_path = temp_file.name
+                    file_paths.append(temp_file_path)
+                    with sf.SoundFile(temp_file_path, mode='w', samplerate=24000, channels=1, format='WAV') as f:
+                        f.write(audio)
+            print(f"converted line {j}/{length}")
+            j+=1
+
+        return file_paths

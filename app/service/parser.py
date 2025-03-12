@@ -7,9 +7,9 @@ class ParserService(ABC):
         pass
 
 class TikaParserService:
-    def __init__(self, file_path):
-        self.file_path = file_path
+    def __init__(self):
+        self.file_path = None
     
-    def parse(self) -> str:
-        parsed = parser.from_file(self.file_path)
+    def parse(self, file_path) -> str:
+        parsed = parser.from_file(file_path)
         return parsed['content']
