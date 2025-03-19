@@ -2,14 +2,11 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from app.constants import TTS_VOICES
-from app.service.player import QTMusicPlayerService
-from app.service.tts import KokoroTextToSpeachService
-from app.service.parser import TikaParserService
 from app.controller.main_window_controller import MainWindowController
 import app.ui.main_window_qrc
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, music_player_service, tts_service, parser):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 640)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
@@ -126,10 +123,10 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.music_player_service = QTMusicPlayerService()
-        self.tts_service = KokoroTextToSpeachService()
-        self.parser = TikaParserService()
-        self.controler = MainWindowController(self, self.music_player_service, self.tts_service, self.parser)
+        self.music_player_service = music_player_service
+        self.tts_service = tts_service
+        self.parser = parser
+        self.controler = MainWindowController(self,music_player_service, tts_service, parser)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
