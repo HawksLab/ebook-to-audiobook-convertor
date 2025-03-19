@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtCore import QThread, pyqtSignal
+from PyQt6.QtGui import QIcon
 from app.ui import Ui_SplashScreen
 import sys
 import time
@@ -38,6 +39,7 @@ def on_loading_complete(splash, MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QIcon("resources/logo.ico"))  
 
     splash = QtWidgets.QMainWindow()
     splash_ui = Ui_SplashScreen()

@@ -1,4 +1,5 @@
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtGui import QIcon
 import shutil
 
 class MainWindowController:
@@ -14,20 +15,47 @@ class MainWindowController:
 
         self.ui.convertButton.clicked.connect(self.convert_text_to_audio)
         self.ui.playButton.clicked.connect(self.play_audio)
+        self.ui.streamButton.clicked.connect(self.stream_audio)
         self.ui.playMediaButton.clicked.connect(self.play_audio_toggle)
         self.ui.uploadButton.clicked.connect(self.upload_ebook)
         self.ui.saveButton.clicked.connect(self.save_audio)
         self.ui.openAction.triggered.connect(self.upload_ebook)
         self.ui.saveAction.triggered.connect(self.save_audio)
         self.ui.actionExit.triggered.connect(QtWidgets.QApplication.quit)
+        self.ui.actionAbout.triggered.connect(self.show_about)
         self.music_player_service.player.positionChanged.connect(self.update_slider)
         self.music_player_service.player.durationChanged.connect(self.set_slider_range)
         self.ui.horizontalSlider.sliderMoved.connect(self.slider_moved)
         self.ui.horizontalSlider.sliderReleased.connect(self.slider_released)
+    
+    def show_about(self):
+        about_dialog = QtWidgets.QMessageBox()
+        about_dialog.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        about_dialog.setWindowTitle("About")
+        about_dialog.setText("Abook Convertor is a simple application that converts e-books to audio-books")
+        about_dialog.setInformativeText('Product of <a href="https://github.com/HawksLab">Hawks Lab</a>')
+        about_dialog.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        about_dialog.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        about_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        about_dialog.exec()
+
+    def stream_audio(self):
+        error_dialog = QtWidgets.QMessageBox()
+        error_dialog.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        error_dialog.setWindowTitle("W.I.P")
+        error_dialog.setText("Work in Progress")
+        error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        error_dialog.exec()
 
     def convert_text_to_audio(self):
         if self.ui.plainTextEdit.toPlainText() == "":
-            print("No text to convert") # Todo: add error popup here
+            print("No text to convert")
+            error_dialog = QtWidgets.QMessageBox()
+            error_dialog.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            error_dialog.setWindowTitle("Error")
+            error_dialog.setText("No text to convert")
+            error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            error_dialog.exec()
             return
         self.audio_paths = self.tts_service.generate(
             self.ui.plainTextEdit.toPlainText(),
@@ -48,6 +76,12 @@ class MainWindowController:
             self.music_player_service.play(self.merged_audio_path)
         else:
             print("No audio to play") # Todo: add error popup here
+            error_dialog = QtWidgets.QMessageBox()
+            error_dialog.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            error_dialog.setWindowTitle("Error")
+            error_dialog.setText("No audio to play")
+            error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            error_dialog.exec()
 
     def upload_ebook(self):
         file_dialog = QtWidgets.QFileDialog()
@@ -64,6 +98,12 @@ class MainWindowController:
                 shutil.copy(self.merged_audio_path, file_path)
         else:
             print("No audio to save")
+            error_dialog = QtWidgets.QMessageBox()
+            error_dialog.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            error_dialog.setWindowTitle("Error")
+            error_dialog.setText("No audio to save")
+            error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            error_dialog.exec()
     
     def update_slider(self, position):
         self.ui.horizontalSlider.setValue(position)
