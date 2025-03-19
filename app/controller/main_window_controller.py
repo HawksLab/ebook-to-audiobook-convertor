@@ -1,4 +1,5 @@
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtGui import QIcon
 import shutil
 
 class MainWindowController:
@@ -21,11 +22,23 @@ class MainWindowController:
         self.ui.openAction.triggered.connect(self.upload_ebook)
         self.ui.saveAction.triggered.connect(self.save_audio)
         self.ui.actionExit.triggered.connect(QtWidgets.QApplication.quit)
+        self.ui.actionAbout.triggered.connect(self.show_about)
         self.music_player_service.player.positionChanged.connect(self.update_slider)
         self.music_player_service.player.durationChanged.connect(self.set_slider_range)
         self.ui.horizontalSlider.sliderMoved.connect(self.slider_moved)
         self.ui.horizontalSlider.sliderReleased.connect(self.slider_released)
     
+    def show_about(self):
+        about_dialog = QtWidgets.QMessageBox()
+        about_dialog.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        about_dialog.setWindowTitle("About")
+        about_dialog.setText("Abook Convertor is a simple application that converts e-books to audio-books")
+        about_dialog.setInformativeText('Product of <a href="https://github.com/HawksLab">Hawks Lab</a>')
+        about_dialog.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        about_dialog.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        about_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        about_dialog.exec()
+
     def stream_audio(self):
         error_dialog = QtWidgets.QMessageBox()
         error_dialog.setIcon(QtWidgets.QMessageBox.Icon.Information)
