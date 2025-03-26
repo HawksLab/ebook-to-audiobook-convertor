@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtCore
 from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import QThread, pyqtSignal
 import shutil
 
 class MainWindowController:
@@ -57,11 +58,10 @@ class MainWindowController:
             error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
             error_dialog.exec()
             return
-        self.audio_paths = self.tts_service.generate(
+        self.audio_paths = self.tts_service.generate(self,
             self.ui.plainTextEdit.toPlainText(),
             self.ui.comboBox.currentText(),
         )
-        self.merged_audio_path = self.music_player_service.concatinate(self.audio_paths)
 
     def play_audio_toggle(self):
         if self.isAudioPlaying:
@@ -86,9 +86,26 @@ class MainWindowController:
     def upload_ebook(self):
         file_dialog = QtWidgets.QFileDialog()
         file_path, _ = file_dialog.getOpenFileName(self.ui.widget, "Open E-Book", "", "E-Book Files (*.pdf *.epub)")
+        class LoadTextWorker(QThread):
+            progress = pyqtSignal(str)
+            finished_parsing = pyqtSignal(str)
+
+            def __init__(self, parser_service, file_path):
+                super().__init__()
+                self.file_path = file_path
+                self.parser_service = parser_service
+
+            def run(self):
+                parsed_text = self.parser_service.parse(self.file_path)
+                self.finished_parsing.emit(parsed_text)
+
         if file_path:
-            text = self.parser_service.parse(file_path)
-            self.ui.plainTextEdit.setPlainText(text)
+            def on_finished(parsed_text):
+                self.ui.plainTextEdit.setPlainText(parsed_text)
+
+            self.worker = LoadTextWorker(self.parser_service, file_path)
+            self.worker.finished_parsing.connect(lambda text: on_finished(text))
+            self.worker.start()
     
     def save_audio(self):
         if self.merged_audio_path:
