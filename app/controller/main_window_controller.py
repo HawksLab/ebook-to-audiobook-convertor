@@ -58,11 +58,10 @@ class MainWindowController:
             error_dialog.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
             error_dialog.exec()
             return
-        self.audio_paths = self.tts_service.generate(
+        self.audio_paths = self.tts_service.generate(self,
             self.ui.plainTextEdit.toPlainText(),
             self.ui.comboBox.currentText(),
         )
-        self.merged_audio_path = self.music_player_service.concatinate(self.audio_paths)
 
     def play_audio_toggle(self):
         if self.isAudioPlaying:

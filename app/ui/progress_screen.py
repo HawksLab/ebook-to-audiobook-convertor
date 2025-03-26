@@ -8,6 +8,8 @@ class Ui_progressWindow(object):
     def setupUi(self, progressWindow):
         progressWindow.setObjectName("progressWindow")
         progressWindow.resize(540, 120)
+        progressWindow.setWindowFlags(QtCore.Qt.WindowType.Window | QtCore.Qt.WindowType.CustomizeWindowHint)
+        progressWindow.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
         progressWindow.setMinimumSize(QtCore.QSize(540, 120))
         progressWindow.setMaximumSize(QtCore.QSize(540, 120))
         icon = QtGui.QIcon()
@@ -24,7 +26,7 @@ class Ui_progressWindow(object):
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.progressBar = QtWidgets.QProgressBar(parent=self.centralwidget)
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.verticalLayout.addWidget(self.progressBar)
         progressWindow.setCentralWidget(self.centralwidget)

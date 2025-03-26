@@ -21,7 +21,7 @@ class LoadingThread(QThread):
         from app.service.parser import TikaParserService
 
         self.progress.emit("Loading TTS...")
-        tts_service = KokoroTextToSpeachService()
+        tts_service = KokoroTextToSpeachService(music_player_service)
         self.progress.emit("Loading parser...")
         parser = TikaParserService()
         self.progress.emit("Starting Application...")
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     splash = QtWidgets.QMainWindow()
     splash_ui = Ui_SplashScreen()
     MainWindow = QtWidgets.QMainWindow()
-    music_player_service = QTMusicPlayerService() # Intializing this main thread
+    music_player_service = QTMusicPlayerService() # Intializing this in main thread
     
     worker = LoadingThread(splash,splash_ui)
     worker.progress.connect(lambda msg: splash_ui.loadingStatus.setText(msg))
