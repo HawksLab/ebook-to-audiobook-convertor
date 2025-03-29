@@ -22,6 +22,7 @@ class QTMusicPlayerService(PlayerService):
     def __init__(self):
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
+        self.audio_output.setVolume(1.0)
         self.player.setAudioOutput(self.audio_output)
     
     def concatinate(self, audio_temp_paths):
