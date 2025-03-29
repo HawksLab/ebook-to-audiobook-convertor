@@ -27,13 +27,14 @@ Narratify is a desktop application that transforms your e-books (PDF and EPUB) i
 
 <!-- Add your screenshots here! -->
 *Main Interface (Dark Theme)*
+![image](https://github.com/user-attachments/assets/3374c7dc-6c00-473b-a56e-c83933e97f69)
 
 *Conversion Options*
+![image](https://github.com/user-attachments/assets/47926c0d-f320-4c8a-a060-9842d3f34a31)
+
 
 *Audio Player*
-
-*Progress Screen*
-
+![image](https://github.com/user-attachments/assets/34c3a225-2024-4640-82b3-02fa962ae885)
 
 
 ## ⚙️ Installation
@@ -117,7 +118,7 @@ This project is licensed under the GPL 3 License - see the [LICENSE](LICENSE) fi
 
 ## 🙏 Acknowledgements
 
-*   Developed by [Hawks Labs](https://github.com/hawks-lab). <!-- Link to Hawks Labs profile/website if available -->
+*   Developed by [Hawks Labs](https://github.com/HawksLab).
 *   GUI built using the excellent [PyQt6](https://riverbankcomputing.com/software/pyqt/) framework.
 *   TTS powered by [Kokoro TTS](https://github.com/ranchu/kokoro-tts). <!-- Verify Kokoro source/link -->
 *   Document parsing enabled by [Apache Tika](https://tika.apache.org/).
