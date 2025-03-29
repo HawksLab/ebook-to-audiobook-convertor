@@ -182,8 +182,7 @@ class Ui_MainWindow(QMainWindow):
         
         voice_select_layout = QHBoxLayout()
         self.voice_combo = QComboBox()
-        self.voice_combo.addItems(["SYNTH-1", "RETRO-WAVE", "8-BIT", 
-                                  "ARCADE", "VAPORWAVE"])
+        self.voice_combo.addItems(TTS_VOICES)
         self.voice_combo.setMinimumHeight(40)
         self.voice_combo.setFont(QFont("Courier New", 10))
         self.voice_combo.setObjectName("retro-combo")
@@ -520,10 +519,12 @@ class Ui_MainWindow(QMainWindow):
                 }
                 QLabel#retro-text {
                     color: #e0e0e0;
+                    background: transparent;
                 }
                 QLabel#retro-label {
                     color: #a0a0a0;
                     font-weight: bold;
+                    background: transparent;
                 }
                 QLabel#time-display {
                     color: #e0e0e0;
@@ -721,10 +722,12 @@ class Ui_MainWindow(QMainWindow):
                 }
                 QLabel#retro-text {
                     color: #202020;
+                    background: transparent;
                 }
                 QLabel#retro-label {
                     color: #505050;
                     font-weight: bold;
+                    background: transparent;
                 }
                 QLabel#time-display {
                     color: #202020;
