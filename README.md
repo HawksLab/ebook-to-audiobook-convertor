@@ -8,7 +8,7 @@ Narratify is a desktop application that transforms your e-books (PDF and EPUB) i
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hawks-lab/hawkslab-narratify&type=Date)](https://star-history.com/#hawks-lab/hawkslab-narratify)
+[![Star History Chart](https://api.star-history.com/svg?repos=HawksLab/narratify&type=Date)](https://www.star-history.com/#HawksLab/narratify&Date)
 
 ## ✨ Features
 
