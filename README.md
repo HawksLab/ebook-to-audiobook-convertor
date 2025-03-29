@@ -114,11 +114,11 @@ Please report any bugs or suggest features through the GitHub Issues page.
 
 ## 📜 License
 
-This project is licensed under the GPL 3 License - see the [LICENSE](LICENSE) file for details. <!-- Create a LICENSE file with MIT License text -->
+This project is licensed under the GPL 3 License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgements
 
 *   Developed by [Hawks Labs](https://github.com/HawksLab).
 *   GUI built using the excellent [PyQt6](https://riverbankcomputing.com/software/pyqt/) framework.
-*   TTS powered by [Kokoro TTS](https://github.com/ranchu/kokoro-tts). <!-- Verify Kokoro source/link -->
+*   TTS powered by [Kokoro TTS](https://github.com/hexgrad/kokoro).
 *   Document parsing enabled by [Apache Tika](https://tika.apache.org/).
