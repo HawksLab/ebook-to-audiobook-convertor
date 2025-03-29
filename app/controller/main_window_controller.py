@@ -41,24 +41,12 @@ class MainWindowController:
         # Actions
         self.ui.save_btn.clicked.connect(self.save_file)
         self.ui.new_conversion_btn.clicked.connect(self.reset_to_conversion)
-
-        
-
-        # self.ui.convertButton.clicked.connect(self.convert_text_to_audio)
-        # self.ui.playButton.clicked.connect(self.play_audio)
-        # self.ui.streamButton.clicked.connect(self.stream_audio)
-        # self.ui.playMediaButton.clicked.connect(self.play_audio_toggle)
-        # self.ui.uploadButton.clicked.connect(self.upload_ebook)
-        # self.ui.saveButton.clicked.connect(self.save_audio)
-        # self.ui.openAction.triggered.connect(self.upload_ebook)
-        # self.ui.saveAction.triggered.connect(self.save_audio)
-        # self.ui.actionExit.triggered.connect(QtWidgets.QApplication.quit)
-        # self.ui.actionAbout.triggered.connect(self.show_about)
-        # self.music_player_service.player.positionChanged.connect(self.update_slider)
-        # self.music_player_service.player.durationChanged.connect(self.set_slider_range)
-        # self.ui.horizontalSlider.sliderMoved.connect(self.slider_moved)
-        # self.ui.horizontalSlider.sliderReleased.connect(self.slider_released)
     
+    def demo_voice (self):
+        QMessageBox.information(self.ui, "VOICE TEST", f"PLAYING {self.ui.voice_combo.currentText()} VOICE SAMPLE")
+        self.music_player_service.play(self.ui.voice_combo.currentText())
+        pass
+
     def toggle_theme(self):
         self.ui.is_dark_mode = not self.ui.is_dark_mode
         self.ui.apply_theme()
@@ -115,8 +103,9 @@ class MainWindowController:
         voice = self.ui.voice_combo.currentText()
         # Simulate voice preview
         self.ui.statusBar().showMessage(f"TESTING: {voice}")
-        QMessageBox.information(self.ui, "VOICE TEST", f"W.I.P")
-        # QMessageBox.information(self.ui, "VOICE TEST", f"PLAYING {voice} VOICE SAMPLE")
+        voice = self.ui.voice_combo.currentText()
+        self.music_player_service.play(f'resources/demo_audio/{voice}.wav')
+        QMessageBox.information(self.ui, "VOICE TEST", f"PLAYING {voice} VOICE SAMPLE")
     
     def convert_to_audio(self):
         if self.ui.text_edit.toPlainText() == "":
