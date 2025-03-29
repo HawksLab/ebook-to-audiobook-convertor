@@ -5,6 +5,7 @@ from PyQt6 import QtWidgets
 from app.ui import Ui_progressWindow
 import tempfile
 import soundfile as sf
+import librosa
 
 global_text = ""
 global_voice = ""
@@ -21,7 +22,7 @@ class KokoroTextToSpeachService(TextToSpeachService):
         self.file_paths = []
  
 
-    def generate(self, main_window_controller, text: str, voice: str = 'af_heart', speed: int = 1):
+    def generate(self, main_window_controller, main_window_ui, text: str, voice: str = 'af_heart', speed: int = 1):
         global global_text, global_voice
         global_voice = voice
         global_text = text
@@ -30,9 +31,19 @@ class KokoroTextToSpeachService(TextToSpeachService):
 
         self.worker = TTSThread(main_window_controller, progress_bar, progress_ui, self, text, voice, speed)
         self.merged_file_paths = []
-        self.worker.progress.connect(lambda msg: progress_ui.progressBar.setProperty("value", ((int(msg.split('/')[0]) / int(msg.split('/')[1])) * 100 )))
-        self.worker.finished.connect(lambda: (progress_bar.close()))
-        # self.worker.run(text, voice, speed)
+        self.worker.progress.connect(lambda msg: (main_window_ui.progress_bar.setProperty("value", ((int(msg.split('/')[0]) / int(msg.split('/')[1])) * 100 )), main_window_ui.statusBar().showMessage("Converting...")))
+        self.worker.finished.connect(
+            lambda: (
+            main_window_ui.stacked_widget.setCurrentIndex(2),
+            main_window_ui.statusBar().showMessage("CONVERSION COMPLETED"),
+            main_window_ui.total_time_label.setText(
+                "{:02}:{:02}".format(
+                int(librosa.get_duration(path=self.worker.merged_file_path) // 60),
+                int(librosa.get_duration(path=self.worker.merged_file_path) % 60)
+                )
+            ),
+            )
+        )
         self.worker.start()
 
 class TTSThread(QThread):
@@ -49,7 +60,7 @@ class TTSThread(QThread):
             self.voice = voice
             self.speed = speed
 
-        def run(self, speed:int = 1):
+        def run(self):
             global global_text, global_voice
             text = global_text
             voice = global_voice
@@ -60,7 +71,7 @@ class TTSThread(QThread):
             for line in lines:
                 self.generator = self.tts_service.pipeline(
                     line, voice=voice, 
-                    speed=speed,
+                    speed=self.speed,
                 )
 
                 for i, (gs, ps, audio) in enumerate(self.generator):

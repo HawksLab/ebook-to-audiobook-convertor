@@ -27,13 +27,12 @@ class LoadingThread(QThread):
         self.progress.emit("Starting Application...")
         time.sleep(2)
 
-def on_loading_complete(splash, MainWindow):
+def on_loading_complete(splash):
     from app.ui import Ui_MainWindow
-    global music_player_service, tts_service, parser 
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow, music_player_service, tts_service, parser)
+    global music_player_service, tts_service, parser, main_window
+    main_window = Ui_MainWindow(music_player_service, tts_service, parser)
     splash.close()
-    MainWindow.show()
+    main_window.show()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -41,12 +40,12 @@ if __name__ == "__main__":
 
     splash = QtWidgets.QMainWindow()
     splash_ui = Ui_SplashScreen()
-    MainWindow = QtWidgets.QMainWindow()
+    main_window = None
     music_player_service = QTMusicPlayerService() # Intializing this in main thread
     
     worker = LoadingThread(splash,splash_ui)
     worker.progress.connect(lambda msg: splash_ui.loadingStatus.setText(msg))
-    worker.finished.connect(lambda: on_loading_complete(splash, MainWindow))
+    worker.finished.connect(lambda: on_loading_complete(splash))
     worker.start()
     
     sys.exit(app.exec())
